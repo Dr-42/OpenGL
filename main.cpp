@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
 int main(){
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -23,6 +25,8 @@ int main(){
 		return -1;
 	}
 
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
 	while (!glfwWindowShouldClose(window)){
 		glfwPollEvents();
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -33,3 +37,8 @@ int main(){
 	glfwTerminate();
 	return 0;
 }
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height){
+	glViewport(0, 0, width, height);
+}
+
