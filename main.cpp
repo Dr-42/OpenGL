@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <math.h>
-
+#define PI 3.14159265358979323846
 #include "shader.h"
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
@@ -71,9 +71,12 @@ int main(){
 
 		shader.Use();
 
-		float green = (sin(glfwGetTime()) / 2) + 0.5;	
+		float timeValue = glfwGetTime();
+		float green = (sin(timeValue) / 2) + 0.5;
+		float red = (cos(timeValue + PI/2) / 2) + 0.5;
+
 		int vertexColorLocation = glGetUniformLocation(shader.GetProgram(), "ourColor");
-		glUniform3f(vertexColorLocation, 0.0f, green, 0.0f);
+		glUniform3f(vertexColorLocation, red, green, 0.0f);
 
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
