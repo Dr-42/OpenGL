@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <math.h>
 
 #include "shader.h"
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -69,6 +70,11 @@ int main(){
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		shader.Use();
+
+		float green = (sin(glfwGetTime()) / 2) + 0.5;	
+		int vertexColorLocation = glGetUniformLocation(shader.GetProgram(), "ourColor");
+		glUniform3f(vertexColorLocation, 0.0f, green, 0.0f);
+
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
