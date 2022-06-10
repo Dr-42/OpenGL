@@ -9,10 +9,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 //vertices of a rectangle 0.5 units wide and 0.5 units tall
 double vertices[] = {
-	0.95, 0.95, 0.0,
-	0.95, -0.95, 0.0,
-	-0.95, -0.95, 0.0,
-	-0.95, 0.95, 0.0
+	1.0, 1.0, 0.0,
+	1.0, -1.0, 0.0,
+	-1.0, -1.0, 0.0,
+	-1.0, 1.0, 0.0
 };
 
 unsigned int indices[] = {
@@ -20,9 +20,13 @@ unsigned int indices[] = {
 	1, 2, 3
 };
 
-float dx = 0.30;
-float dy = 0.250;
-float d_scale = -4.0;
+float dx = 0.5;
+float dy = 0;
+float d_scale = 2;
+
+bool key_pressed = false;
+
+float scale = 0.01;
 
 int main(){
 	glfwInit();
@@ -30,7 +34,7 @@ int main(){
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(720, 720, "OpenGL", NULL, NULL);
 	if (window == NULL){
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
@@ -71,7 +75,7 @@ int main(){
 	while (!glfwWindowShouldClose(window)){
 		processInput(window);
 		glfwPollEvents();
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.2f, 0.0f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		shader.Use();
@@ -94,29 +98,55 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 	glViewport(0, 0, width, height);
 }
 
+
 void processInput(GLFWwindow *window){
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
 		glfwSetWindowShouldClose(window, true);
 	}
+
+
+	if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS){
+		if(!key_pressed){
+			key_pressed = true;
+			scale *= 2;
+		}
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS){
+		if(!key_pressed){
+			key_pressed = true;
+			scale /= 2;
+		}
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_RELEASE){
+		key_pressed = false;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_RELEASE){
+		key_pressed = false;
+	}
+
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS){
-		dy -= 0.01;
+		dy -= scale;
 	}
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS){
-		dy += 0.01;
+		dy +=  scale;
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS){
-		dx += 0.01;
+		dx += scale;
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS){
-		dx -= 0.01;
+		dx -= scale;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
-		d_scale += 0.01;
+		d_scale -= scale;
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
-		d_scale *= 0.01;
+		d_scale += scale;
 	}
 
-	std::cout << "dx: " << dx << " dy: " << dy << " d_scale: " << d_scale << std::endl;
+	std::cout<<scale<<std::endl;
+
 }

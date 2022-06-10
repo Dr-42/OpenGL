@@ -20,6 +20,7 @@ public:
 
 	void SetUniform(const char* name, float value);
 	void SetUniform(const char* name, int value);
+	void SetUniform(const char* name, double value);
 
 	unsigned int GetProgram();
 private:
