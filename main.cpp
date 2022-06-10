@@ -23,8 +23,10 @@ unsigned int indices[] = {
 float dx = 0.5;
 float dy = 0;
 float d_scale = 2;
-
+float dt = 0.01;
 bool key_pressed = false;
+
+float max_iterations =  1;
 
 float scale = 0.01;
 
@@ -71,6 +73,7 @@ int main(){
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
+	float start_time = glfwGetTime();
 
 	while (!glfwWindowShouldClose(window)){
 		processInput(window);
@@ -78,11 +81,20 @@ int main(){
 		glClearColor(0.2f, 0.0f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		
 		shader.Use();
 
 		shader.SetUniform("dx", dx);
 		shader.SetUniform("dy", dy);
 		shader.SetUniform("d_scale", d_scale);
+
+		//Increase max iterations by 1 every second
+		if (glfwGetTime() - start_time > 1){
+			start_time = glfwGetTime();
+			shader.SetUniform("max_iterations", max_iterations ++);
+
+			std::cout<<max_iterations<<std::endl;
+		}
 
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -147,6 +159,8 @@ void processInput(GLFWwindow *window){
 		d_scale += scale;
 	}
 
-	std::cout<<scale<<std::endl;
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS){
+		dt = 0;
+	}
 
 }

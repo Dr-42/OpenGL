@@ -19,6 +19,7 @@ public:
 	void Cleanup();
 
 	void SetUniform(const char* name, float value);
+	float GetUniformfloat(const char* name);
 	void SetUniform(const char* name, int value);
 	void SetUniform(const char* name, double value);
 

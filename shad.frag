@@ -7,8 +7,9 @@ uniform float dx;
 uniform float dy;
 uniform float d_scale;
 
-#define MAX_ITERATIONS 50
- 
+#define MAX_ITERATIONS 1000
+uniform float max_iterations;
+
 int get_iterations()
 {
 
@@ -19,7 +20,7 @@ int get_iterations()
     float const_real = real;
     float const_imag = imag;
  
-    while (iterations < MAX_ITERATIONS)
+    while (iterations < max_iterations)
     {
         float tmp_real = real;
         real = (real * real - imag * imag) + const_real;
@@ -38,13 +39,13 @@ int get_iterations()
 vec4 return_color()
 {
     int iter = get_iterations();
-    if (iter == MAX_ITERATIONS)
+    if (iter == max_iterations)
     {
         gl_FragDepth = 0.0f;
         return vec4(0.0f, 0.0f, 0.0f, 1.0f);
     }
  
-    float iterations = float(iter) / MAX_ITERATIONS;    
+    float iterations = float(iter) / float(max_iterations);
     return vec4(iterations/2, 0.0f,iterations, 1.0f);
 }
  
