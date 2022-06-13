@@ -3,6 +3,9 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <string>
 #include <fstream>
@@ -20,6 +23,12 @@ public:
 
 	void SetUniform(const char* name, float value);
 	void SetUniform(const char* name, int value);
+	void SetUniform(const char* name, unsigned int value);
+	void SetUniform(const char* name, bool value);
+	void SetUniform(const char* name, const glm::vec2& value);
+	void SetUniform(const char* name, const glm::vec3& value);
+	void SetUniform(const char* name, const glm::vec4& value);
+	void SetUniform(const char* name, const glm::mat4& value);
 
 	unsigned int GetProgram();
 private:

@@ -93,6 +93,30 @@ void Shader::SetUniform(const char* name, int value)
 	glUniform1i(glGetUniformLocation(m_program, name), value);
 }
 
+void Shader::SetUniform(const char* name, unsigned int value){
+	glUniform1ui(glGetUniformLocation(m_program, name), value);
+}
+
+void Shader::SetUniform(const char* name, bool value){
+	glUniform1i(glGetUniformLocation(m_program, name), value);
+}
+
+void Shader::SetUniform(const char* name, const glm::vec2& value){
+	glUniform2fv(glGetUniformLocation(m_program, name), 1, &value[0]);
+}
+
+void Shader::SetUniform(const char* name, const glm::vec3& value){
+	glUniform3fv(glGetUniformLocation(m_program, name), 1, &value[0]);
+}
+
+void Shader::SetUniform(const char* name, const glm::vec4& value){
+	glUniform4fv(glGetUniformLocation(m_program, name), 1, &value[0]);
+}
+
+void Shader::SetUniform(const char* name, const glm::mat4& value){
+	glUniformMatrix4fv(glGetUniformLocation(m_program, name), 1, GL_FALSE, &value[0][0]);
+}
+
 unsigned int Shader::GetProgram()
 {
 	return m_program;

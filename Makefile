@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-Wall -pedantic
+CFLAGS=-Wall -pedantic -g -O2 -std=c++11
 
 LIBS=-lm -lGLEW -lglfw -lGL 
 
