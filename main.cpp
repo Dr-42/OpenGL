@@ -227,7 +227,7 @@ int main()
 		lightingShader.setInt("material.diffuseMap" , 0);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);
-		lightingShader.setInt("material.specularMap" , 1);
+		lightingShader.setInt("material.specular" , 1);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
