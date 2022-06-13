@@ -7,7 +7,7 @@ all: main
 
 run: main
 	./main
-main: main.cpp shader.cpp
-	$(CC) -o main main.cpp shader.cpp $(CFLAGS) $(LIBS)
+main: main.cpp
+	$(CC) -o main main.cpp $(CFLAGS) $(LIBS)
 clean:
 	rm -f main *.o
