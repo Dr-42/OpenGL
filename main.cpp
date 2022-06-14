@@ -131,8 +131,8 @@ int main()
 	unsigned int specularMap = loadTexture("resources/container2_specular.png");
 
 	lightingShader.use();
-	lightingShader.setInt("material.diffuse", 0);
-	lightingShader.setInt("material.specular", 1);
+	lightingShader.setInt("material.diffuseMap", 0);
+	lightingShader.setInt("material.specularMap", 1);
 
 
 	// first, configure the cube's VAO (and VBO)
